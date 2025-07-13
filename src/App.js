@@ -9,6 +9,8 @@ import CatalogPage from "./components/CatalogPage";
 import MenuBar from "./components/MenuBar";
 import LoginPage from "./components/LoginPage"; // You must create this component
 import InvoiceTable from "./components/InvoiceTable";
+import RemittancePaymentsPage from "./components/RemittancePaymentsPage";
+
 
 
 // Layout for pages with TopNav & Side Menu
@@ -34,7 +36,7 @@ function AppLayout({ children }) {
                 &times;
               </button>
             </div>
-            <MenuBar />
+            <MenuBar onLinkClick={() => setMenuOpen(false)} />
           </div>
         </>
       )}
@@ -63,6 +65,8 @@ function AppRoutes() {
           <Route path="/shipped-revenue" element={<ShippedRevenuePage />} />
           <Route path="/catalog" element={<CatalogPage />} />
           <Route path="/invoice-management" element={<InvoiceTable />} /> 
+          <Route path="/remittance-payments" element={<RemittancePaymentsPage />} />
+
         </Route>
       </Route>
       {/* Catch-all: redirect to login */}

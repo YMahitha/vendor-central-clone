@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
 
 const menuItems = [
@@ -29,10 +30,7 @@ const menuItems = [
   },
   {
     label: "Merchandising",
-    subItems: [
-      "Manage Your Experiments",
-      "Business Discounts"
-    ],
+    subItems: ["Manage Your Experiments", "Business Discounts"],
   },
   {
     label: "Growth",
@@ -51,19 +49,24 @@ const menuItems = [
       "Brand Analytics",
       "Voice of the Customer",
       "Product Prep and Packaging",
-      "Concession Hub"
+      "Concession Hub",
+    ],
+  },
+  {
+    label: "Payments",
+    subItems: [
+      { label: "Invoice", path: "/invoice-management" },
+      { label: "Remittance Payments", path: "/remittance-payments" },
     ],
   },
   {
     label: "Learn",
-    subItems: [
-      "Learning Hub",
-      "Webinars"
-    ],
+    subItems: ["Learning Hub", "Webinars"],
   },
 ];
 
-const MenuBar = () => {
+const MenuBar = ({ onLinkClick }) => {
+
   const [hovered, setHovered] = useState(null);
 
   return (
@@ -84,16 +87,29 @@ const MenuBar = () => {
               {item.label}
               <FaChevronRight className="ml-2" />
             </button>
+
             {hovered === item.label && item.subItems && (
               <ul className="absolute top-0 left-full ml-1 bg-white border shadow-xl rounded min-w-[260px] z-30">
-                {item.subItems.map((sub) => (
-                  <li
-                    key={sub}
-                    className="px-6 py-3 text-base text-gray-800 hover:bg-gray-100 cursor-pointer whitespace-nowrap"
-                  >
-                    {sub}
-                  </li>
-                ))}
+                {item.subItems.map((sub, idx) =>
+                  typeof sub === "string" ? (
+                    <li
+                      key={idx}
+                      className="px-6 py-3 text-base text-gray-800 hover:bg-gray-100 cursor-pointer whitespace-nowrap"
+                    >
+                      {sub}
+                    </li>
+                  ) : (
+                    <li key={idx}>
+                      <Link
+                        to={sub.path}
+                        onClick={onLinkClick}
+                        className="block px-6 py-3 text-base text-gray-800 hover:bg-gray-100 whitespace-nowrap"
+                      >
+                        {sub.label}
+                      </Link>
+                    </li>
+                  )
+                )}
               </ul>
             )}
           </li>

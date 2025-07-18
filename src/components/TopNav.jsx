@@ -6,6 +6,11 @@ import { useNavigate } from 'react-router-dom';
 const TopNav = ({ onMenuClick }) => {
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.removeItem("vc_logged_in");
+    navigate("/login");
+  };
+
   return (
     <header className="flex items-center justify-between bg-[#232f3e] text-white px-4 py-3 shadow">
       <div className="flex items-center space-x-6">
@@ -15,14 +20,13 @@ const TopNav = ({ onMenuClick }) => {
         {/* Logo + Title */}
         <div
           className="flex items-center space-x-2 cursor-pointer select-none"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/dashboard")}
         >
           {/* Amazon Logo */}
           <img src="/amazon-dark-logo-png-transparent.png" alt="Amazon" className="h-12" />
 
           {/* Text */}
           <div className="text-white text-sm font-semibold">
-            
             <span className="font-light">vendor central</span>
           </div>
         </div>
@@ -38,6 +42,14 @@ const TopNav = ({ onMenuClick }) => {
         <FiSettings className="text-lg cursor-pointer" />
         <IoIosHelpCircleOutline className="text-2xl cursor-pointer" />
         <span className="text-sm">Help</span>
+
+        {/* Logout Button */}
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 hover:bg-red-700 text-white text-sm px-3 py-1 rounded font-medium"
+        >
+          Logout
+        </button>
       </div>
     </header>
   );

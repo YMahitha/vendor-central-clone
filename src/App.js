@@ -7,11 +7,9 @@ import InventoryPage from "./components/InventoryPage";
 import ShippedRevenuePage from "./components/ShippedRevenuePage";
 import CatalogPage from "./components/CatalogPage";
 import MenuBar from "./components/MenuBar";
-import LoginPage from "./components/LoginPage"; // You must create this component
+import LoginPage from "./components/LoginPage";
 import InvoiceTable from "./components/InvoiceTable";
 import RemittancePaymentsPage from "./components/RemittancePaymentsPage";
-
-
 
 // Layout for pages with TopNav & Side Menu
 function AppLayout({ children }) {
@@ -54,21 +52,23 @@ function ProtectedRoute() {
 function AppRoutes() {
   return (
     <Routes>
-      {/* Login page always visible */}
+      {/* Login is the landing page */}
+      <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<LoginPage />} />
+
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
         <Route element={<AppLayout><Outlet /></AppLayout>}>
-          <Route path="/" element={<VendorDashboard />} />
+          <Route path="/dashboard" element={<VendorDashboard />} />
           <Route path="/retail-analytics" element={<RetailAnalyticsPage />} />
           <Route path="/inventory" element={<InventoryPage />} />
           <Route path="/shipped-revenue" element={<ShippedRevenuePage />} />
           <Route path="/catalog" element={<CatalogPage />} />
-          <Route path="/invoice-management" element={<InvoiceTable />} /> 
+          <Route path="/invoice-management" element={<InvoiceTable />} />
           <Route path="/remittance-payments" element={<RemittancePaymentsPage />} />
-
         </Route>
       </Route>
+
       {/* Catch-all: redirect to login */}
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
